@@ -1,0 +1,90 @@
+<html xmlns:th="http://www.thymeleaf.org">
+     <head th:replace="layout :: html_head">
+     	<meta charset="UTF-8"/>
+     </head>
+     <body>
+     	<header th:replace="layout :: header"></header>
+     	<main>
+     	
+     		<div th:if="${user.nome == null}" class="alert px-5 py-4 my-3 alert-danger">
+     			<p>Informações da empresa ainda não cadastradas, favor adicioná-las para ter acesso à todas as funcionalidades do sistema.</p>
+ 				<a href="/minha-empresa/editar" class="btn mx-1 btn-outline-danger">Configurar Empresa</a>
+     		</div>
+     	
+     		<div class="p-5 border">
+	        	<h1>Balanço Empresarial</h1>
+	        	<h3>Balanço do Mês: [[${'R&#36; ' + #numbers.formatDecimal(balancoMes, 0, 'COMMA', 2, 'POINT')}]]</h3>
+	        	<h6>Balanço da Semana: [[${'R&#36; ' + #numbers.formatDecimal(balancoSemana, 0, 'COMMA', 2, 'POINT')}]]</h6>
+	        </div>
+	        <div class="p-5 mt-3 border">
+	        	<h2>Gráficos</h2>
+	        	<p><strong>Gráfico 1: </strong> Gastos por categoria nos últimos 30 dias.</p>
+		        <div class="text-center grafico-outer">
+		        	<div class="grafico graf-clientes" style="height: 350px; width: 1100px;"></div>
+	        	</div>
+	        	<hr/>
+	        	<p><strong>Gráfico 2: </strong> Lucro/Prejuízo (em reais) nos últimos 30 dias.</p>
+		        <div class="text-center grafico-outer">
+		        	<div class="grafico graf-movimentacoes" style="height: 350px; width: 1100px;"></div>
+	        	</div>
+	       	</div>
+        </main>
+        <footer th:replace="layout :: footer"></footer>
+	 	<script th:inline="javascript">
+	 		var movimentacoes =/*[[${balancosRecentes}]]*/ null;
+	 	
+	 		if(movimentacoes != null) {
+	 			var dataInicio = new Date();
+	 			dataInicio.setDate(dataInicio.getDate()-30);
+	 			console.log(dataInicio);
+	 			var balancosDatas = [];
+	 			var balancos = [];
+				
+	 			const options = { weekday: undefined, year: undefined, month: 'numeric', day: 'numeric' };
+	 			
+	 			for(i = 0; i < movimentacoes.length; i++) {
+	 				dataInicio.setDate(dataInicio.getDate()+1);
+	 				balancosDatas.push(dataInicio.toLocaleDateString("pt-BR", options));
+	 				balancos.push(movimentacoes[i]);
+				}
+	 			
+		 		new Chartist.Line('.graf-movimentacoes', {
+		 		  labels: balancosDatas,
+		 		  series: [balancos]
+		 		}, {
+		 		  fullWidth: true,
+		 		  chartPadding: {
+		 		    right: 40
+		 		  }
+		 		});
+	 		}
+	 		
+	 		var categorias =/*[[${categorias}]]*/ null;
+	 		
+	 		if(categorias != null)
+	 		{
+	 			var labelsGrafico = [];
+	 			var valoresGrafico = [];
+				
+	 			for (var key in categorias) {
+ 	 			  if (categorias.hasOwnProperty(key)) {
+ 	 				labelsGrafico.push(key);
+ 	 				valoresGrafico.push(categorias[key]);
+ 	 			  }
+ 	 			}
+	 			
+	 			console.log(categorias);
+	 			console.log(labelsGrafico);
+	 			console.log(valoresGrafico);
+
+		 		var chart = new Chartist.Bar('.graf-clientes', 
+		 		{
+		 		  labels: labelsGrafico,
+		 		  series: [
+		 			 valoresGrafico
+		 		  ]
+		 		});	
+	 		}
+	 	</script>
+	 </body>
+</html>

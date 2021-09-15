@@ -1,0 +1,81 @@
+.movimentacao-table td, .movimentacao-table th {
+    padding: 15px;
+}
+
+:root {
+	--sidebar-size: 280px;
+}
+
+html, body {
+	position: relative;
+}
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+hr {
+	background-color: #959595 !important;
+}
+
+.grafico {
+	display: inline-block;
+	width: 100%;
+}
+
+header {
+	width: 100%;
+}
+
+.grafico-outer {
+	overflow-x: auto;
+}
+
+.custom-border-bottom {
+	border-bottom: 1px solid var(--accent-color) !important;
+}
+
+.custom-bg a {
+	color: white !important;
+}
+	
+.custom-bg {
+	background: var(--accent-color) !important;
+	color: white !important;
+	text-shadow: 1px 1px #00000069;	
+}
+
+.custom-header {
+	padding-bottom: 10px;
+	box-shadow: inset 0px -10px 0px 0px rgba(0,0,0,0.35);	
+}
+
+main {
+	max-width: 100%;
+	margin: auto;
+}
+
+/* Tiny devices (smartphones, 576px and up) */
+@media (min-width: 576px) {
+	main {
+		max-width: 540px;
+	}
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+	header {
+		width: var(--sidebar-size);
+		position: fixed;
+		height: 100%;
+		top: 0;
+	}
+	header .main-header {
+		height: 100%;
+	}
+	main {
+		max-width: 100%;
+		margin: unset;
+		margin-left: var(--sidebar-size);
+		margin-top: 50px;
+		padding: 0 50px;
+	}
+}

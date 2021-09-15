@@ -1,0 +1,57 @@
+ <html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="relatorio :: html_head">
+		<meta charset="UTF-8"/>
+	</head>
+	<body>
+		<div class="invoice-box">
+	        <a href="#" onclick="window.history.back();" class="noprint">VOLTAR</a>
+	        <table cellpadding="0" cellspacing="0">
+	            <tr class="top">
+	            <td colspan="5">
+	                <table>
+	                <tr>
+	                    <td class="title">
+	                    <h4 th:text="${companyName}"></h4>
+	                    </td>
+	
+	                    <td>
+	                    <b>Relatório de clientes</b><br> Emitido: <span th:text="${#dates.format(#dates.createNow(), 'dd/MM/YYYY')}"></span>
+	                    </td>
+	                </tr>
+	                </table>
+	            </td>
+	            </tr>
+	
+	            <tr class="heading">
+		            <td>
+		                Nome
+		            </td>
+		            
+		            <td class="center">
+		                E-mail
+		            </td>
+		            
+		            <td class="center">
+		                Telefone
+		            </td>
+		
+					<td class="center">
+		                Endereço
+		            </td>
+		            
+		            <td class="right">
+		                Dívida	
+		            </td>
+	            </tr>					
+	            <tr class="item" th:each="cliente : ${listClientes}">
+	                <td th:text="${cliente.nome}"/>
+					<td class="center" th:text="${cliente.email}"/>
+					<td class="center" th:text="${cliente.telefone}"/>
+					<td class="center" th:text="${cliente.endereco}"/>
+					<td class="right" th:text="${'R$ ' + cliente.divida}"/>
+	            </tr>
+	        </table>
+	    </div>
+	   	<script th:replace="relatorio :: footer_scripts"></script>
+	</body>
+</html>

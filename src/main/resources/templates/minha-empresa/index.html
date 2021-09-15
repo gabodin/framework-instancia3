@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="layout :: html_head">
+		<meta charset="UTF-8"/>
+	</head>
+	<body>
+		<header th:replace="layout :: header"></header>
+		
+		<main>
+			
+			<div class="p-5 border">
+				<h1>Dados da Empresa</h1>
+				<p>Os dados cadastrados para sua empresa.</p>
+				<a th:href="@{/minha-empresa/editar}" class="btn btn-outline-success" type="button">Editar dados</a>
+				<a th:href="@{/minha-empresa/dividas}" class="btn btn-outline-danger" type="button">Ver dívidas empresariais</a>
+			</div>
+			
+			<div class="p-5 mt-2 border">
+			
+				<h6>Nome da Empresa: [[${empresa.nome}]]</h6>
+				
+				<h6>E-mail Empresarial: [[${empresa.email}]]</h6>
+				
+				
+				<h6>CNPJ: [[${empresa.cnpj}]]</h6>
+			
+			</div>
+			
+		</main>
+		
+		<footer th:replace="layout :: footer"></footer>
+	</body>
+</html>
